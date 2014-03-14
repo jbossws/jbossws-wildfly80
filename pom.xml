@@ -35,7 +35,7 @@
   <description>JBossWS WildFly 8.0.0.Final Integration Parent</description>
   <groupId>org.jboss.ws</groupId>
   <artifactId>jbossws-wildfly800-parent</artifactId>
-  <version>4.3.0-SNAPSHOT</version>
+  <version>4.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <scm>
@@ -51,8 +51,8 @@
 
   <properties>
     <jbossws.api.version>1.0.2.Final</jbossws.api.version>
-    <jbossws.spi.version>2.3.0-SNAPSHOT</jbossws.spi.version>
-    <jbossws.common.version>2.3.0-SNAPSHOT</jbossws.common.version>
+    <jbossws.spi.version>2.3.1-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>2.3.1-SNAPSHOT</jbossws.common.version>
     <jboss.msc.version>1.2.0.Final</jboss.msc.version>
     <wildfly.version>8.0.0.Final</wildfly.version>
     <wildfly.security-manager.version>1.0.0.Final</wildfly.security-manager.version>
