@@ -144,18 +144,14 @@ abstract class AbstractMetaDataBuilderEJB {
     }
 
     private static void buildSecurityMetaData(final EJBMetaData wsEjbMD, final EJBEndpoint ejbEndpoint, final JBossPortComponentMetaData portComponentMD) {
-        final EJBSecurityMetaData smd = new EJBSecurityMetaData();
         // auth method
         final String authMethod = getAuthMethod(ejbEndpoint, portComponentMD);
-        smd.setAuthMethod(authMethod);
         // transport guarantee
         final String transportGuarantee = getTransportGuarantee(ejbEndpoint, portComponentMD);
-        smd.setTransportGuarantee(transportGuarantee);
         // secure wsdl access
         final boolean secureWsdlAccess = isSecureWsdlAccess(ejbEndpoint, portComponentMD);
-        smd.setSecureWSDLAccess(secureWsdlAccess);
         // propagate
-        wsEjbMD.setSecurityMetaData(smd);
+        wsEjbMD.setSecurityMetaData(new EJBSecurityMetaData(authMethod, transportGuarantee, secureWsdlAccess));
     }
 
     private static String getAuthMethod(final EJBEndpoint ejbEndpoint, final JBossPortComponentMetaData portComponentMD) {
