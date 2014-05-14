@@ -52,7 +52,7 @@
   <properties>
     <jbossws.api.version>1.0.2.Final</jbossws.api.version>
     <jbossws.spi.version>3.0.0-SNAPSHOT</jbossws.spi.version>
-    <jbossws.common.version>2.3.0.Final</jbossws.common.version>
+    <jbossws.common.version>3.0.0-SNAPSHOT</jbossws.common.version>
     <jboss.msc.version>1.2.0.Final</jboss.msc.version>
     <wildfly.version>8.0.0.Final</wildfly.version>
     <wildfly.security-manager.version>1.0.0.Final</wildfly.security-manager.version>
