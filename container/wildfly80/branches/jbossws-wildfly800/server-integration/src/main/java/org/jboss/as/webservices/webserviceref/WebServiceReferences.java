@@ -1,5 +1,7 @@
 package org.jboss.as.webservices.webserviceref;
 
+import static org.jboss.as.webservices.webserviceref.WSRefUtils.processAnnotatedElement;
+
 import java.lang.reflect.AnnotatedElement;
 
 import javax.xml.ws.Service;
@@ -14,10 +16,7 @@ import org.jboss.as.webservices.util.VirtualFileAdaptor;
 import org.jboss.modules.Module;
 import org.jboss.wsf.spi.deployment.UnifiedVirtualFile;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedServiceRefMetaData;
-import org.jboss.wsf.spi.serviceref.ServiceRefType;
 import org.wildfly.security.manager.WildFlySecurityManager;
-
-import static org.jboss.as.webservices.webserviceref.WSRefUtils.processAnnotatedElement;
 
 /**
  * Utility class that encapsulates the creation of web service ref factories.
@@ -74,8 +73,6 @@ public class WebServiceReferences {
         } else {
             serviceRefUMDM.setServiceInterface(Service.class.getName());
         }
-        // ref type
-        serviceRefUMDM.setType(ServiceRefType.JAXWS);
 
         return serviceRefUMDM;
     }

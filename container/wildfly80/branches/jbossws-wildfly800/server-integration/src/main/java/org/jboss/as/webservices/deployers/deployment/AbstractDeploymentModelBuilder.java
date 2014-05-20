@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2011, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2014, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -48,7 +48,6 @@ import org.jboss.wsf.spi.deployment.AnnotationsInfo;
 import org.jboss.wsf.spi.deployment.ArchiveDeployment;
 import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
-import org.jboss.wsf.spi.deployment.DeploymentType;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.EndpointType;
 import org.jboss.wsf.spi.metadata.webservices.JBossWebservicesMetaData;
@@ -65,21 +64,17 @@ abstract class AbstractDeploymentModelBuilder implements DeploymentModelBuilder 
     /** Deployment model factory. */
     private final DeploymentModelFactory deploymentModelFactory;
 
-    /** Deployment type this builder creates. */
-    private final DeploymentType deploymentType;
-
     /** Endpoint type this builder creates. */
     private final EndpointType endpointType;
 
     /**
      * Constructor.
      */
-    protected AbstractDeploymentModelBuilder(final DeploymentType deploymentType, final EndpointType endpointType) {
+    protected AbstractDeploymentModelBuilder(final EndpointType endpointType) {
         // deployment factory
         final ClassLoader cl = AbstractDeploymentModelBuilder.class.getClassLoader();
         final SPIProvider spiProvider = SPIProviderResolver.getInstance(cl).getProvider();
         this.deploymentModelFactory = spiProvider.getSPI(DeploymentModelFactory.class, cl);
-        this.deploymentType = deploymentType;
         this.endpointType = endpointType;
     }
 
@@ -210,7 +205,6 @@ abstract class AbstractDeploymentModelBuilder implements DeploymentModelBuilder 
             dep.setRootFile(new ResourceLoaderAdapter(classLoader));
         }
         dep.setRuntimeClassLoader(classLoader);
-        dep.setType(deploymentType);
         //add an AnnotationInfo attachment that uses composite jandex index
         dep.addAttachment(AnnotationsInfo.class, new JandexAnnotationsInfo(unit));
 

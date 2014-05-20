@@ -36,6 +36,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 import org.jboss.as.ee.component.Component;
 import org.jboss.as.ee.component.ComponentView;
 import org.jboss.as.naming.ManagedReference;
+import org.jboss.as.webservices.WSLogger;
 import org.jboss.as.webservices.injection.WSComponent;
 import org.jboss.invocation.InterceptorContext;
 import org.jboss.msc.service.ServiceName;
@@ -132,7 +133,7 @@ abstract class AbstractInvocationHandler extends org.jboss.ws.common.invocation.
          wsInvocation.setReturnValue(retObj);
       }
       catch (Throwable t) {
-         log.error(MESSAGES.methodInvocationFailed(t.getLocalizedMessage()), t);
+         WSLogger.ROOT_LOGGER.error(MESSAGES.methodInvocationFailed(t.getLocalizedMessage()), t);
          handleInvocationException(t);
       }
       finally {
