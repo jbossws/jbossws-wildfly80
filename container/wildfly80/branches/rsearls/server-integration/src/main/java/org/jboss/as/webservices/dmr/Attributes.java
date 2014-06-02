@@ -62,12 +62,12 @@ interface Attributes {
             .setAllowExpression(true)
             .build();
 
-    SimpleAttributeDefinition PATH = new SimpleAttributeDefinitionBuilder(Constants.PATH, ModelType.STRING)
+    SimpleAttributeDefinition WSDL_PATH_REWRITE_RULE = new SimpleAttributeDefinitionBuilder(Constants.WSDL_PATH_REWRITE_RULE, ModelType.STRING)
         .setAllowNull(true)
         .setAllowExpression(false)
         .build();
 
-    SimpleAttributeDefinition[] SUBSYSTEM_ATTRIBUTES = {MODIFY_WSDL_ADDRESS, WSDL_HOST, WSDL_PORT, WSDL_SECURE_PORT, PATH};
+    SimpleAttributeDefinition[] SUBSYSTEM_ATTRIBUTES = {MODIFY_WSDL_ADDRESS, WSDL_HOST, WSDL_PORT, WSDL_SECURE_PORT, WSDL_PATH_REWRITE_RULE};
 
     SimpleAttributeDefinition VALUE = new SimpleAttributeDefinitionBuilder(Constants.VALUE, ModelType.STRING)
             .setAllowNull(true)

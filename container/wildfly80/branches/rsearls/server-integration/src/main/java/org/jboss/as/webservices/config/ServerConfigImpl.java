@@ -52,7 +52,7 @@ public final class ServerConfigImpl extends AbstractServerConfig implements Abst
     private final DMRSynchCheckHandler webServicePortUCH = new DMRSynchCheckHandler();
     private final DMRSynchCheckHandler webServiceSecurePortUCH = new DMRSynchCheckHandler();
     private final DMRSynchCheckHandler modifySOAPAddressUCH = new DMRSynchCheckHandler();
-    private final DMRSynchCheckHandler webServicePathUCH = new DMRSynchCheckHandler();
+    private final DMRSynchCheckHandler webServicePathRewriteRuleUCH = new DMRSynchCheckHandler();
 
     private ServerConfigImpl() {
         // forbidden inheritance
@@ -66,7 +66,7 @@ public final class ServerConfigImpl extends AbstractServerConfig implements Abst
         webServicePortUCH.reset();
         webServiceSecurePortUCH.reset();
         modifySOAPAddressUCH.reset();
-        webServicePathUCH.reset();
+        webServicePathRewriteRuleUCH.reset();
     }
 
     public void incrementWSDeploymentCount() {
@@ -91,13 +91,13 @@ public final class ServerConfigImpl extends AbstractServerConfig implements Abst
         setWebServiceHost(host, webServiceHostUCH);
     }
 
-    public void setWebServicePath(String path, boolean forceUpdate) {
-        setWebServicePath(path, forceUpdate ? null : webServicePathUCH);
+    public void setWebServicePathRewriteRule(String path, boolean forceUpdate) {
+        setWebServicePathRewriteRule(path, forceUpdate ? null : webServicePathRewriteRuleUCH);
     }
 
     @Override
-    public void setWebServicePath(String path) {
-        setWebServicePath(path, webServicePathUCH);
+    public void setWebServicePathRewriteRule(String path) {
+        setWebServicePathRewriteRule(path, webServicePathRewriteRuleUCH);
     }
 
     public void setWebServicePort(int port, boolean forceUpdate) {

@@ -55,5 +55,5 @@ interface Constants {
     String HANDLER_NAME="handler-name";
     String HANDLER_CLASS="handler-class";
     String VALUE = "value";
-    String PATH = "path";
+    String WSDL_PATH_REWRITE_RULE = "wsdl-path-rewrite-rule";
 }

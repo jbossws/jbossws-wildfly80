@@ -95,7 +95,7 @@ public class ServerConfigImplTestCase {
         internalTestSingleAttributeUpdate(new Callback() {
             @Override
             public void setAttribute(ServerConfig sc) throws Exception {
-                sc.setWebServicePath("MY/TEST/PATH");
+                sc.setWebServicePathRewriteRule("MY/TEST/PATH");
             }
         });
     }
@@ -129,7 +129,7 @@ public class ServerConfigImplTestCase {
         Callback cbE = new Callback() {
             @Override
             public void setAttribute(ServerConfig sc) throws Exception {
-                sc.setWebServicePath("MY/TEST/PATH");
+                sc.setWebServicePathRewriteRule("MY/TEST/PATH");
             }
         };
         internalTestMultipleAttributeUpdate(cbA, new Callback[]{cbB, cbC, cbD, cbE});

@@ -104,9 +104,9 @@ final class WSServerConfigAttributeHandler extends AbstractWriteAttributeHandler
             } else if (WSDL_SECURE_PORT.equals(attributeName)) {
                 final int securePort = value != null ? Integer.parseInt(value) : -1;
                 config.setWebServiceSecurePort(securePort, isRevert);
-            } else if (PATH.equals(attributeName)) {
+            } else if (WSDL_PATH_REWRITE_RULE.equals(attributeName)) {
                 final String path = value != null ? value : null;
-                config.setWebServicePath(path, isRevert);
+                config.setWebServicePathRewriteRule(path, isRevert);
             } else {
                 throw new IllegalArgumentException(attributeName);
             }
