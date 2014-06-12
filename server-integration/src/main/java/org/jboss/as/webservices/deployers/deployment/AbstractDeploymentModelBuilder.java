@@ -50,6 +50,7 @@ import org.jboss.wsf.spi.deployment.Deployment;
 import org.jboss.wsf.spi.deployment.DeploymentModelFactory;
 import org.jboss.wsf.spi.deployment.Endpoint;
 import org.jboss.wsf.spi.deployment.EndpointType;
+import org.jboss.wsf.spi.deployment.UnifiedVirtualFile;
 import org.jboss.wsf.spi.metadata.webservices.JBossWebservicesMetaData;
 import org.jboss.wsf.spi.metadata.webservices.WebservicesMetaData;
 
@@ -184,27 +185,21 @@ abstract class AbstractDeploymentModelBuilder implements DeploymentModelBuilder 
         } else {
             classLoader = module.getClassLoader();
         }
-        final ArchiveDeployment dep = this.newDeployment(unit.getName(), classLoader);
 
+        ArchiveDeployment parentDep = null;
         if (unit.getParent() != null) {
-            final String parentDeploymentName = unit.getParent().getName();
             final Module parentModule = unit.getParent().getAttachment(Attachments.MODULE);
             if (parentModule == null) {
                 throw MESSAGES.classLoaderResolutionFailed(deploymentRoot);
             }
-            final ClassLoader parentClassLoader = parentModule.getClassLoader();
 
             ROOT_LOGGER.creatingUnifiedWebservicesDeploymentModel(unit.getParent());
-            final ArchiveDeployment parentDep = this.newDeployment(parentDeploymentName, parentClassLoader);
-            dep.setParent(parentDep);
+            parentDep = this.newDeployment(null, unit.getParent().getName(), parentModule.getClassLoader(), null);
         }
 
-        if (root != null) {
-            dep.setRootFile(new VirtualFileAdaptor(root));
-        } else {
-            dep.setRootFile(new ResourceLoaderAdapter(classLoader));
-        }
-        dep.setRuntimeClassLoader(classLoader);
+        final UnifiedVirtualFile uvf = root != null ? new VirtualFileAdaptor(root) : new ResourceLoaderAdapter(classLoader);
+        final ArchiveDeployment dep = this.newDeployment(parentDep, unit.getName(), classLoader, uvf);
+        
         //add an AnnotationInfo attachment that uses composite jandex index
         dep.addAttachment(AnnotationsInfo.class, new JandexAnnotationsInfo(unit));
 
@@ -218,7 +213,12 @@ abstract class AbstractDeploymentModelBuilder implements DeploymentModelBuilder 
      * @param loader deployment loader
      * @return new archive deployment
      */
-    private ArchiveDeployment newDeployment(final String name, final ClassLoader loader) {
-        return (ArchiveDeployment) this.deploymentModelFactory.newDeployment(name, loader);
+    private ArchiveDeployment newDeployment(final ArchiveDeployment parent, final String name, final ClassLoader loader, final UnifiedVirtualFile rootFile) {
+        if (parent != null) {
+            return (ArchiveDeployment) this.deploymentModelFactory.newDeployment(parent, name, loader, rootFile);
+        } else {
+            return (ArchiveDeployment) this.deploymentModelFactory.newDeployment(name, loader, rootFile);
+        }
+
     }
 }
