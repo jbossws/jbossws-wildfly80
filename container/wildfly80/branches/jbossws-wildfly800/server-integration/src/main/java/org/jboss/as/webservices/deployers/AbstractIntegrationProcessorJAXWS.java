@@ -81,7 +81,7 @@ public abstract class AbstractIntegrationProcessorJAXWS implements DeploymentUni
             ROOT_LOGGER.skippingAnnotationProcessing(unit.getName());
         } else {
             for (final DotName dotName : dotNames) {
-                final List<AnnotationInstance> wsAnnotations = index.getAnnotations(dotName);
+                /*final List<AnnotationInstance> wsAnnotations = index.getAnnotations(dotName);
                 if (!wsAnnotations.isEmpty()) {
                     for (final AnnotationInstance wsAnnotation : wsAnnotations) {
                         final AnnotationTarget target = wsAnnotation.target();
@@ -92,7 +92,22 @@ public abstract class AbstractIntegrationProcessorJAXWS implements DeploymentUni
                             }
                         }
                     }
-                }
+                }*/
+				processAnnotations(unit, dotName, index);
+
+				if (unit.getParent() != null && DeploymentTypeMarker.isType(DeploymentType.EAR,
+								unit.getParent())) {
+					final CompositeIndex parentIndex = unit.getParent()
+							.getAttachment(
+									Attachments.COMPOSITE_ANNOTATION_INDEX);
+
+					if (parentIndex != null) {
+
+						processAnnotations(unit, dotName, parentIndex);
+
+					}
+
+				}
             }
         }
     }
@@ -103,7 +118,33 @@ public abstract class AbstractIntegrationProcessorJAXWS implements DeploymentUni
     }
 
     protected abstract void processAnnotation(final DeploymentUnit unit, final ClassInfo classInfo, final AnnotationInstance wsAnnotation, final CompositeIndex compositeIndex) throws DeploymentUnitProcessingException;
+    
+    private void processAnnotations(final DeploymentUnit unit, final DotName dotName, final CompositeIndex index)
+            throws DeploymentUnitProcessingException {
 
+        final List<AnnotationInstance> wsAnnotations = index.getAnnotations(dotName);
+
+        if (!wsAnnotations.isEmpty()) {
+
+            for (final AnnotationInstance wsAnnotation : wsAnnotations) {
+
+                final AnnotationTarget target = wsAnnotation.target();
+
+                if (target instanceof ClassInfo) {
+
+                    final ClassInfo classInfo = (ClassInfo) target;
+
+                    if (isJaxwsEndpoint(classInfo, index)) {
+
+                        processAnnotation(unit, classInfo, wsAnnotation, index);
+
+                    }
+
+                }
+
+            }
+        }
+    }
     static ComponentDescription createComponentDescription(final DeploymentUnit unit, final String componentName, final String componentClassName, final String dependsOnEndpointClassName) {
         final EEModuleDescription moduleDescription = getRequiredAttachment(unit, EE_MODULE_DESCRIPTION);
         // JBoss WEB processors may install fake components for WS endpoints - removing them forcibly
