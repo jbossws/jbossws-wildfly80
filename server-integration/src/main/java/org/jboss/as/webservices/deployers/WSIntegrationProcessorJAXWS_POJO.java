@@ -35,6 +35,9 @@ import static org.jboss.as.webservices.util.WebMetaDataHelper.getServlets;
 import java.util.List;
 
 import org.jboss.as.ee.component.ComponentDescription;
+import org.jboss.as.ee.structure.DeploymentType;
+import org.jboss.as.ee.structure.DeploymentTypeMarker;
+import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.annotation.CompositeIndex;
@@ -89,14 +92,25 @@ public class WSIntegrationProcessorJAXWS_POJO extends AbstractIntegrationProcess
                     jaxwsDeployment.addEndpoint(new POJOEndpoint(endpointName, endpointClassName, pojoViewName, urlPattern));
                 }
             }
-            if (!found) {
-                // JSR 109, version 1.3 final spec, section 5.3.2.1 javax.jws.WebService annotation
-                final ComponentDescription pojoComponent = createComponentDescription(unit, endpointClassName, endpointClassName, endpointClassName);
-                final ServiceName pojoViewName = registerView(pojoComponent, endpointClassName);
-                // register POJO endpoint
-                final String urlPattern = getUrlPattern(classInfo);
-                jaxwsDeployment.addEndpoint(new POJOEndpoint(endpointClassName, pojoViewName, urlPattern));
-            }
+            DeploymentUnit parentUnit = unit.getParent();
+
+			boolean isEarIndex = parentUnit != null && DeploymentTypeMarker.isType(DeploymentType.EAR, parentUnit)
+					&& parentUnit.getAttachment(Attachments.COMPOSITE_ANNOTATION_INDEX) == compositeIndex;
+
+			if (!found && !isEarIndex) {
+
+				// JSR 109, version 1.3 final spec, section 5.3.2.1
+				// javax.jws.WebService annotation
+				final ComponentDescription pojoComponent = createComponentDescription(
+						unit, endpointClassName, endpointClassName,
+						endpointClassName);
+				final ServiceName pojoViewName = registerView(pojoComponent,
+						endpointClassName);
+				// register POJO endpoint
+				final String urlPattern = getUrlPattern(classInfo);
+				jaxwsDeployment.addEndpoint(new POJOEndpoint(endpointClassName,
+						pojoViewName, urlPattern));
+			}
         }
     }
 
