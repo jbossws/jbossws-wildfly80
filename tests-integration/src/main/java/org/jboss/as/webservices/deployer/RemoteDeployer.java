@@ -442,7 +442,6 @@ public final class RemoteDeployer implements Deployer {
         } else {
             throw new Exception("Operation not successful; outcome = " + result.get(OUTCOME));
         }
-        
     }
 
     private static CallbackHandler getCallbackHandler() {
