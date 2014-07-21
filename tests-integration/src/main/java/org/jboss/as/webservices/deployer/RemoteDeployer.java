@@ -428,7 +428,7 @@ public final class RemoteDeployer implements Deployer {
             String rawResult = response.get(RESULT).asString();
             previousValue = rawResult.substring(13, rawResult.length() - 2); //{"value" => "xyz"}
         } catch (Exception e) {
-            if (!e.getMessage().contains("WFLYCTL0216")) {
+            if (!e.getMessage().contains("WFLYCTL0216") && !e.getMessage().contains("JBAS014807")) {
                 throw e;
             }
         }
