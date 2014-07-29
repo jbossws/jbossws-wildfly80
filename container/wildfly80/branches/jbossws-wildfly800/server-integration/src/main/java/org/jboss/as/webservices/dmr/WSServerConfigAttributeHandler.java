@@ -25,6 +25,7 @@ import static org.jboss.as.webservices.dmr.Constants.MODIFY_WSDL_ADDRESS;
 import static org.jboss.as.webservices.dmr.Constants.WSDL_HOST;
 import static org.jboss.as.webservices.dmr.Constants.WSDL_PORT;
 import static org.jboss.as.webservices.dmr.Constants.WSDL_SECURE_PORT;
+import static org.jboss.as.webservices.dmr.Constants.WSDL_PATH_REWRITE_RULE;
 
 import java.net.UnknownHostException;
 
@@ -107,6 +108,9 @@ final class WSServerConfigAttributeHandler extends AbstractWriteAttributeHandler
             } else if (WSDL_SECURE_PORT.equals(attributeName)) {
                 final int securePort = value != null ? Integer.parseInt(value) : -1;
                 config.setWebServiceSecurePort(securePort, isRevert);
+            } else if (WSDL_PATH_REWRITE_RULE.equals(attributeName)) {
+                final String path = value != null ? value : null;
+                config.setWebServicePathRewriteRule(path, isRevert);
             } else {
                 throw new IllegalArgumentException(attributeName);
             }
