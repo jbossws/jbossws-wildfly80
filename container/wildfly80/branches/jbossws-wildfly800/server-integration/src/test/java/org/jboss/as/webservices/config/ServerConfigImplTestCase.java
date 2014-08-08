@@ -92,12 +92,6 @@ public class ServerConfigImplTestCase {
                 sc.setWebServiceSecurePort(5435);
             }
         });
-        internalTestSingleAttributeUpdate(new Callback() {
-            @Override
-            public void setAttribute(ServerConfig sc) throws Exception {
-                sc.setWebServicePathRewriteRule("MY/TEST/PATH");
-            }
-        });
     }
     
     @Test
@@ -126,17 +120,10 @@ public class ServerConfigImplTestCase {
                 sc.setWebServiceSecurePort(5435);
             }
         };
-        Callback cbE = new Callback() {
-            @Override
-            public void setAttribute(ServerConfig sc) throws Exception {
-                sc.setWebServicePathRewriteRule("MY/TEST/PATH");
-            }
-        };
-        internalTestMultipleAttributeUpdate(cbA, new Callback[]{cbB, cbC, cbD, cbE});
-        internalTestMultipleAttributeUpdate(cbB, new Callback[]{cbA, cbC, cbD, cbE});
-        internalTestMultipleAttributeUpdate(cbC, new Callback[]{cbA, cbB, cbD, cbE});
-        internalTestMultipleAttributeUpdate(cbD, new Callback[]{cbA, cbB, cbC, cbE});
-        internalTestMultipleAttributeUpdate(cbE, new Callback[]{cbA, cbB, cbC, cbD});
+        internalTestMultipleAttributeUpdate(cbA, new Callback[]{cbB, cbC, cbD});
+        internalTestMultipleAttributeUpdate(cbB, new Callback[]{cbA, cbC, cbD});
+        internalTestMultipleAttributeUpdate(cbC, new Callback[]{cbA, cbB, cbD});
+        internalTestMultipleAttributeUpdate(cbD, new Callback[]{cbA, cbB, cbC});
     }
     
     protected void internalTestSingleAttributeUpdate(Callback cb) throws Exception {
