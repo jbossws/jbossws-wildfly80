@@ -61,13 +61,7 @@ interface Attributes {
             .setDefaultValue(new ModelNode(true))
             .setAllowExpression(true)
             .build();
-
-    SimpleAttributeDefinition WSDL_PATH_REWRITE_RULE = new SimpleAttributeDefinitionBuilder(Constants.WSDL_PATH_REWRITE_RULE, ModelType.STRING)
-        .setAllowNull(true)
-        .setAllowExpression(false)
-        .build();
-
-    SimpleAttributeDefinition[] SUBSYSTEM_ATTRIBUTES = {MODIFY_WSDL_ADDRESS, WSDL_HOST, WSDL_PORT, WSDL_SECURE_PORT, WSDL_PATH_REWRITE_RULE};
+    SimpleAttributeDefinition[] SUBSYSTEM_ATTRIBUTES = {MODIFY_WSDL_ADDRESS, WSDL_HOST, WSDL_PORT, WSDL_SECURE_PORT};
 
     SimpleAttributeDefinition VALUE = new SimpleAttributeDefinitionBuilder(Constants.VALUE, ModelType.STRING)
             .setAllowNull(true)
@@ -82,5 +76,6 @@ interface Attributes {
             .setAllowNull(true)
             .setAllowExpression(true)
             .build();
+
 
 }
