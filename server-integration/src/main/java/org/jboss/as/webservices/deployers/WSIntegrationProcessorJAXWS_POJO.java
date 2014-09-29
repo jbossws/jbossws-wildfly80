@@ -35,6 +35,8 @@ import static org.jboss.as.webservices.util.WebMetaDataHelper.getServlets;
 import java.util.List;
 
 import org.jboss.as.ee.component.ComponentDescription;
+import org.jboss.as.ee.structure.DeploymentType;
+import org.jboss.as.ee.structure.DeploymentTypeMarker;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.annotation.CompositeIndex;
@@ -62,6 +64,9 @@ public class WSIntegrationProcessorJAXWS_POJO extends AbstractIntegrationProcess
 
     @Override
     protected void processAnnotation(final DeploymentUnit unit, final ClassInfo classInfo, final AnnotationInstance wsAnnotation, final CompositeIndex compositeIndex) throws DeploymentUnitProcessingException {
+        if (!DeploymentTypeMarker.isType(DeploymentType.WAR, unit)) {
+            return;
+        }
         if (isEjb3(classInfo)) {
             // Don't create component description for EJB3 endpoints.
             // There's already one created by EJB3 subsystem.
