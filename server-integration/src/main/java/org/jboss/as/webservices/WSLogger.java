@@ -303,4 +303,8 @@ public interface WSLogger extends BasicLogger {
     @LogMessage(level = WARN)
     @Message(id = 15617, value = "Annotation '@%s' found on class '%s'. Perhaps you forgot to add a '%s' module dependency to your deployment?")
     void missingModuleDependency(String annotation, String clazz, String module);
+
+    @LogMessage(level = ERROR)
+    @Message(id = 15618, value = "Could not activate the webservices subsystem.")
+    void couldNotActivateSubsystem(@Cause Throwable cause);
 }
