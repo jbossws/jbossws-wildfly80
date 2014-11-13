@@ -138,7 +138,6 @@ abstract class AbstractInvocationHandler extends org.jboss.ws.common.invocation.
          wsInvocation.setReturnValue(retObj);
       }
       catch (Throwable t) {
-    	  WSLogger.ROOT_LOGGER.error(MESSAGES.methodInvocationFailed(t.getLocalizedMessage()), t);
          handleInvocationException(t);
       }
       finally {
