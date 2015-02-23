@@ -61,7 +61,6 @@
     <javax.mail.version>1.5.1</javax.mail.version>
     <ejb.client.version>2.0.0.Final</ejb.client.version>
     <ejb3.ext.api.version>2.1.0</ejb3.ext.api.version>
-    <jboss.common.core.version>2.2.22.GA</jboss.common.core.version>
     <javassist.version>3.18.1-GA</javassist.version>
     <xerces.version>2.9.1-jbossas-2</xerces.version>
     <remoting.version>4.0.0.Final</remoting.version>
@@ -93,36 +92,72 @@
         <groupId>org.wildfly.security</groupId>
         <artifactId>wildfly-security-manager</artifactId>
         <version>${wildfly.security-manager.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.wildfly</groupId>
         <artifactId>wildfly-controller-client</artifactId>
         <version>${wildfly.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.wildfly</groupId>
         <artifactId>wildfly-security</artifactId>
         <version>${wildfly.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.wildfly</groupId>
         <artifactId>wildfly-server</artifactId>
         <version>${wildfly.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.wildfly</groupId>
         <artifactId>wildfly-ee</artifactId>
         <version>${wildfly.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.wildfly</groupId>
         <artifactId>wildfly-ejb3</artifactId>
         <version>${wildfly.version}</version>
+        <exclusions>
+            <exclusion>
+              <groupId>org.jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
@@ -168,18 +203,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-common-core</artifactId>
-        <version>${jboss.common.core.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging-spi</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
         <groupId>xerces</groupId>
         <artifactId>xercesImpl</artifactId>
         <version>${xerces.version}</version>
@@ -210,6 +233,10 @@
             </exclusion>
             <exclusion>
               <groupId>jboss</groupId>
+              <artifactId>jboss-common-core</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.jboss</groupId>
               <artifactId>jboss-common-core</artifactId>
             </exclusion>
             <exclusion>
@@ -268,12 +295,24 @@
         <groupId>org.hornetq</groupId>
         <artifactId>hornetq-jms-client</artifactId>
         <version>${hornetq.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-common-core</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
         <groupId>org.hornetq</groupId>
         <artifactId>hornetq-jms-server</artifactId>
         <version>${hornetq.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-common-core</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
