@@ -1,0 +1,10 @@
+.project
+.settings/
+server-integration/.classpath
+server-integration/.project
+server-integration/.settings/
+server-integration/target/
+tests-integration/.classpath
+tests-integration/.project
+tests-integration/.settings/
+tests-integration/target/
